@@ -73,14 +73,20 @@ https://www.youtube.com/playlist?list=PL62G310vn6nHSNpACkELWiPlM8J8z8t5J
 
 ---
 
-## <a name="parte1"></a>
+## <a name="parte1">Aula 00 Introdução ao Curso</a>
 
 
 [Voltar ao Índice](#indice)
 
 ---
 
-## <a name="parte2"></a>
+## <a name="parte2">Aula 01 Visão panorâmica sobre o JEE</a>
+
+- Servidores: https://www.oracle.com/technetwork/java/javaee/overview/compatibility-jsp-136984.html
+
+![componentes javaee](https://github.com/josemalcher/devdojo-maratona-jsf/blob/master/readme-img/componentes-javaee.png?raw=true)
+
+- Componentes: https://www.primefaces.org/showcase/index.xhtml
 
 
 [Voltar ao Índice](#indice)
