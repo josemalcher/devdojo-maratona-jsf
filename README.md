@@ -290,6 +290,146 @@ public class EstudanteRegistrarBean implements Serializable {
 
 ## <a name="parte6">Aula 05 Expression Language pt 02, Operações lógicas</a>
 
+- WEB-INF/web.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <welcome-file-list>
+        <welcome-file>index.xhtml</welcome-file>
+    </welcome-file-list>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.xhtml</url-pattern>
+    </servlet-mapping>
+    <context-param><!-- não renderizar comentários -->
+        <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
+        <param-value>true</param-value>
+    </context-param>
+</web-app>
+
+```
+
+```java
+package bean.estudante;
+
+import javax.inject.Named;
+import java.io.Serializable;
+
+//@ManagedBean vai ser depreciado em breve!
+//@Named("OutroNomeDeumBean")
+@Named
+public class EstudanteRegistrarBean implements Serializable {
+    private String nome = "José";
+    private String sobrenome = "Malcher Jr.";
+
+    private double nota1  = 7.5;
+    private double nota2  = 3.5;
+    private double nota3  = 9.5;
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getSobrenome() {
+        return sobrenome;
+    }
+
+    public void setSobrenome(String sobrenome) {
+        this.sobrenome = sobrenome;
+    }
+
+    public double getNota1() {
+        return nota1;
+    }
+
+    public void setNota1(double nota1) {
+        this.nota1 = nota1;
+    }
+
+    public double getNota2() {
+        return nota2;
+    }
+
+    public void setNota2(double nota2) {
+        this.nota2 = nota2;
+    }
+
+    public double getNota3() {
+        return nota3;
+    }
+
+    public void setNota3(double nota3) {
+        this.nota3 = nota3;
+    }
+}
+
+```
+
+```xhtml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:body>
+
+    <h:outputLabel value="Hello, world!"/><br></br>
+
+    <h:outputLabel value="#{estudanteRegistrarBean.nome} #{estudanteRegistrarBean.sobrenome}"></h:outputLabel>
+    <h:outputLabel value="#{estudanteRegistrarBean.nome}"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean['sobrenome']}"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.nota1 eq estudanteRegistrarBean.nota2}"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.nota1 == estudanteRegistrarBean.nota2}"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.nota1 eq estudanteRegistrarBean.nota2 and
+    estudanteRegistrarBean.nome.equals('William')}"/><br/>
+
+    <h:outputText value="Comparacao notas"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.nota1 le estudanteRegistrarBean.nota2}"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.nota1 eq 0 ? 'ZERO' : 'NAO ZERO' }"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.nota1 = 40}"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.nota1}"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.nome += ' sobrenonealgumacoisa'}"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.nome}"/><br/>
+    <!--
+        Palavras reservadas:
+        and, or, not , eq, ne, lt, gt, le, ge, true, false
+        null, instanceof, empty, div e mod
+    -->
+</h:body>
+</html>
+
+```
+
+```
+Hello, world!
+José Malcher Jr.José
+Malcher Jr.
+false
+false
+false
+Comparacao notas
+false
+NAO ZERO
+40
+7.5
+José sobrenonealgumacoisa
+José
+```
 
 [Voltar ao Índice](#indice)
 

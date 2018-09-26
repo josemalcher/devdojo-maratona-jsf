@@ -4,6 +4,7 @@ import javax.inject.Named;
 import java.io.Serializable;
 
 //@ManagedBean vai ser depreciado em breve!
+//@Named("OutroNomeDeumBean")
 @Named
 public class EstudanteRegistrarBean implements Serializable {
     private String nome = "José";
