@@ -437,6 +437,160 @@ José
 
 ## <a name="parte7">Aula 06 Expression Language pt 03, Objetos e enumerações</a>
 
+```xml
+        <dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>6.0</version>
+        </dependency>
+```
+
+```java
+package com.maratonajsf.model.enums;
+
+public enum Turno {
+    MATUTINO, VESPERTINO, NOTURNO
+}
+
+```
+
+```java
+package com.maratonajsf.model;
+
+import com.maratonajsf.model.enums.Turno;
+
+public class Estudante {
+    private String nome = "José";
+    private String sobrenome = "Malcher Jr.";
+
+    private double nota1  = 7.5;
+    private double nota2  = 3.5;
+    private double nota3  = 9.5;
+
+    private Turno turno = Turno.MATUTINO;
+
+    public Turno getTurno() {
+        return turno;
+    }
+
+    public void setTurno(Turno turno) {
+        this.turno = turno;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getSobrenome() {
+        return sobrenome;
+    }
+
+    public void setSobrenome(String sobrenome) {
+        this.sobrenome = sobrenome;
+    }
+
+    public double getNota1() {
+        return nota1;
+    }
+
+    public void setNota1(double nota1) {
+        this.nota1 = nota1;
+    }
+
+    public double getNota2() {
+        return nota2;
+    }
+
+    public void setNota2(double nota2) {
+        this.nota2 = nota2;
+    }
+
+    public double getNota3() {
+        return nota3;
+    }
+
+    public void setNota3(double nota3) {
+        this.nota3 = nota3;
+    }
+}
+
+```
+
+```java
+package com.maratonajsf.bean.estudante;
+
+import com.maratonajsf.model.Estudante;
+
+import javax.inject.Named;
+import java.io.Serializable;
+
+//@ManagedBean vai ser depreciado em breve!
+//@Named("OutroNomeDeumBean")
+@Named
+public class EstudanteRegistrarBean implements Serializable {
+    private Estudante estudante = new Estudante();
+
+    public Estudante getEstudante() {
+        return estudante;
+    }
+
+    public void setEstudante(Estudante estudante) {
+        this.estudante = estudante;
+    }
+}
+
+```
+
+```xhtml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+>
+<h:body>
+    <p:importEnum type="com.maratonajsf.model.enums.Turno"
+                  var="Turno" allSuffix="ALL_ENUM_VALUES"/>
+
+    <h:outputLabel value="Hello, world!"/><br></br>
+
+    <h:outputLabel value="#{estudanteRegistrarBean.estudante.nome} #{estudanteRegistrarBean.estudante.sobrenome}"></h:outputLabel>
+    <h:outputLabel value="#{estudanteRegistrarBean.estudante.nome}"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.estudante['sobrenome']}"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.estudante.nota1 eq estudanteRegistrarBean.estudante.nota2}"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.estudante.nota1 == estudanteRegistrarBean.estudante.nota2}"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.estudante.nota1 eq estudanteRegistrarBean.estudante.nota2 and
+    estudanteRegistrarBean.estudante.nome.equals('William')}"/><br/>
+
+    <h:outputText value="Comparacao notas"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.estudante.nota1 le estudanteRegistrarBean.estudante.nota2}"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.estudante.nota1 eq 0 ? 'ZERO' : 'NAO ZERO' }"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.estudante.nota1 = 40}"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.estudante.nota1}"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.estudante.nome += ' sobrenonealgumacoisa'}"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.estudante.nome}"/><br/>
+    <!--
+        Palavras reservadas:
+        and, or, not , eq, ne, lt, gt, le, ge, true, false
+        null, instanceof, empty, div e mod
+    -->
+    <h:outputLabel value="EMUMs:"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.estudante.turno eq Turno.MATUTINO}"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.estudante.turno.equals(Turno.MATUTINO)}"/><br/>
+</h:body>
+
+
+</html>
+
+```
+
 
 [Voltar ao Índice](#indice)
 

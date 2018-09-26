@@ -1,18 +1,24 @@
-package bean.estudante;
+package com.maratonajsf.model;
 
-import javax.inject.Named;
-import java.io.Serializable;
+import com.maratonajsf.model.enums.Turno;
 
-//@ManagedBean vai ser depreciado em breve!
-//@Named("OutroNomeDeumBean")
-@Named
-public class EstudanteRegistrarBean implements Serializable {
+public class Estudante {
     private String nome = "José";
     private String sobrenome = "Malcher Jr.";
 
     private double nota1  = 7.5;
     private double nota2  = 3.5;
     private double nota3  = 9.5;
+
+    private Turno turno = Turno.MATUTINO;
+
+    public Turno getTurno() {
+        return turno;
+    }
+
+    public void setTurno(Turno turno) {
+        this.turno = turno;
+    }
 
     public String getNome() {
         return nome;
