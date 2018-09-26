@@ -591,6 +591,25 @@ public class EstudanteRegistrarBean implements Serializable {
 
 ```
 
+```
+Hello, world!
+José Malcher Jr.José
+Malcher Jr.
+false
+false
+false
+Comparacao notas
+false
+NAO ZERO
+40
+7.5
+José sobrenonealgumacoisa
+José
+EMUMs:
+true
+true
+```
+
 
 [Voltar ao Índice](#indice)
 
