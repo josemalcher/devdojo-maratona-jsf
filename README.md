@@ -192,6 +192,97 @@ https://www.youtube.com/playlist?list=PL62G310vn6nHSNpACkELWiPlM8J8z8t5J
 
 ## <a name="parte5">Aula 04 Expression Language pt 01   Introdução</a>
 
+![Namespace jsf](https://github.com/josemalcher/devdojo-maratona-jsf/blob/master/readme-img/namesspaces.png?raw=true)
+
+```xml
+<dependency>
+    <groupId>javax</groupId>
+    <artifactId>javaee-api</artifactId>
+    <version>7.0</version>
+    <scope>provided</scope>
+</dependency>
+```
+
+```java
+
+package bean.estudante;
+
+import javax.inject.Named;
+import java.io.Serializable;
+
+//@ManagedBean vai ser depreciado em breve!
+@Named
+public class EstudanteRegistrarBean implements Serializable {
+    private String nome = "José";
+    private String sobrenome = "Malcher Jr.";
+
+    private double nota1  = 7.5;
+    private double nota2  = 3.5;
+    private double nota3  = 9.5;
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getSobrenome() {
+        return sobrenome;
+    }
+
+    public void setSobrenome(String sobrenome) {
+        this.sobrenome = sobrenome;
+    }
+
+    public double getNota1() {
+        return nota1;
+    }
+
+    public void setNota1(double nota1) {
+        this.nota1 = nota1;
+    }
+
+    public double getNota2() {
+        return nota2;
+    }
+
+    public void setNota2(double nota2) {
+        this.nota2 = nota2;
+    }
+
+    public double getNota3() {
+        return nota3;
+    }
+
+    public void setNota3(double nota3) {
+        this.nota3 = nota3;
+    }
+}
+
+
+```
+
+```xhtml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+   <f:view> <!-- tag bom para internacionalização -->
+      <h:outputLabel value="Hello, world!"/><br></br>
+
+      <h:outputLabel value="#{estudanteRegistrarBean.nome} #{estudanteRegistrarBean.sobrenome}"></h:outputLabel>
+   </f:view>
+
+
+</html>
+
+```
 
 [Voltar ao Índice](#indice)
 
