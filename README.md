@@ -190,189 +190,413 @@ https://www.youtube.com/playlist?list=PL62G310vn6nHSNpACkELWiPlM8J8z8t5J
 
 ---
 
-## <a name="parte5"></a>
+## <a name="parte5">Aula 04 Expression Language pt 01   Introdução</a>
 
 
 [Voltar ao Índice](#indice)
 
 ---
 
-## <a name="parte6"></a>
+## <a name="parte6">Aula 05 Expression Language pt 02, Operações lógicas</a>
 
 
 [Voltar ao Índice](#indice)
 
 ---
 
-## <a name="parte7"></a>
+## <a name="parte7">Aula 06 Expression Language pt 03, Objetos e enumerações</a>
 
 
 [Voltar ao Índice](#indice)
 
 ---
 
-## <a name="parte8"></a>
+## <a name="parte8">Aula 07 Expression Language pt 04, Coleções</a>
 
 
 [Voltar ao Índice](#indice)
 
 ---
 
-## <a name="parte9"></a>
+## <a name="parte9">Aula 08 Expression Language pt 05, Executando métodos</a>
 
 
 [Voltar ao Índice](#indice)
 
 ---
 
-## <a name="parte10"></a>
+## <a name="parte10">Aula 09 Expression Language pt 06, EL com JS e CSS</a>
 
 
 [Voltar ao Índice](#indice)
 
 ---
 
-## <a name="parte11"></a>
+## <a name="parte11">Aula 10 Expression Language pt 07, EL Manipulando exibição com rendered e ajax</a>
 
 
 [Voltar ao Índice](#indice)
 
 ---
 
-## <a name="parte12"></a>
+## <a name="parte12">Aula 11 Expression Language pt 08, EL lambdas e streams</a>
 
 
 [Voltar ao Índice](#indice)
 
 ---
 
-## <a name="parte13"></a>
+## <a name="parte13">Aula 12 Escopos pt 01, RequestScoped</a>
 
 
 [Voltar ao Índice](#indice)
 
 ---
 
-## <a name="parte14"></a>
+## <a name="parte14">Aula 13  Escopos pt 02, SessionScoped</a>
 
 
 [Voltar ao Índice](#indice)
 
 ---
 
-## <a name="parte15"></a>
+## <a name="parte15">Aula 14 Escopos pt 03, ViewScoped</a>
 
 
 [Voltar ao Índice](#indice)
 
 ---
 
-## <a name="parte16"></a>
+## <a name="parte16">Aula 15 Escopos pt 04, ApplicationScoped</a>
 
 
 [Voltar ao Índice](#indice)
 
 ---
 
-## <a name="parte17"></a>
+## <a name="parte17">Aula 16 Escopos pt 05, ConversationScoped</a>
 
 
 [Voltar ao Índice](#indice)
 
 ---
 
-## <a name="parte18"></a>
+## <a name="parte18">Aula 17 Escopos pt 06, FlowScoped pt 01, Introdução e funcionamento</a>
 
 
 [Voltar ao Índice](#indice)
 
 ---
 
-## <a name="parte19"></a>
+## <a name="parte19">Aula 18 Escopos pt 07, FlowScoped pt 02, Configuração do flowxml</a>
 
 
 [Voltar ao Índice](#indice)
 
 ---
 
-## <a name="parte20"></a>
+## <a name="parte20">Aula 19 Escopos pt 08, FlowScoped pt 03, Nested FlowScoped (FlowScope Aninhado)</a>
 
 
 [Voltar ao Índice](#indice)
 
 ---
 
-## <a name="parte21"></a>
+## <a name="parte21">Aula 20 Escopos pt 09, FlowScoped pt 04, FlowBuilder, Flows com anotações</a>
 
 
 [Voltar ao Índice](#indice)
 
 ---
 
-## <a name="parte22"></a>
+## <a name="parte22">Aula 21 Escopos pt 10, Dependent</a>
 
 
 [Voltar ao Índice](#indice)
 
 ---
 
-## <a name="parte23"></a>
+## <a name="parte23">Aula 22 Escopos pt 11, Injeção de Beans</a>
 
 
 [Voltar ao Índice](#indice)
 
 ---
 
-## <a name="parte24"></a>
+## <a name="parte24">Aula 23 Escopos pt 12, Filtro e login com SessionScoped</a>
 
 
 [Voltar ao Índice](#indice)
 
 ---
 
-## <a name="parte25"></a>
+## <a name="parte25">Aula 24 Comunicação pt 01, parâmetros com f param</a>
 
 
 [Voltar ao Índice](#indice)
 
 ---
 
-## <a name="parte26"></a>
+## <a name="parte26">Aula 25 Comunicação pt 02, parâmetros com viewParam pt 01</a>
 
 
 [Voltar ao Índice](#indice)
 
 ---
 
-## <a name="parte27"></a>
+## <a name="parte27">Aula 26 Comunicação pt 03, parâmetros com viewParam pt 02</a>
 
 
 [Voltar ao Índice](#indice)
 
 ---
 
-## <a name="parte28"></a>
+## <a name="parte28">Aula 27 Comunicação pt 04, parâmetros com viewParam pt 03</a>
 
 
 [Voltar ao Índice](#indice)
 
 ---
 
-## <a name="parte29"></a>
+## <a name="parte29">Aula 28 Comunicação pt 05, Adicionando atributos aos componentes com fattribute</a>
 
 
 [Voltar ao Índice](#indice)
 
 ---
 
-## <a name="parte30"></a>
+## <a name="parte30">Aula 29 Comunicação pt 06, Executando os métodos set com setPropertyActionListener</a>
 
 
 [Voltar ao Índice](#indice)
 
 ---
 
-## <a name="parte31"></a>
+## <a name="parte31">Aula 30 Comunicação pt 07, Passando atributos entre beans com FlashScope</a>
+
+
+[Voltar ao Índice](#indice)
+
+---
+
+## <a name="parte32">Aula 31 Comunicação pt 08, Cookies</a>
+
+
+[Voltar ao Índice](#indice)
+
+---
+
+## <a name="parte33">Aula 32 Comunicação pt 09, InputSecret e chamada de métodos com argumentos</a>
+
+
+[Voltar ao Índice](#indice)
+
+---
+
+## <a name="parte34">Aula 33 Comunicação pt 10, Adicionando objetos na sessão dinamicamente</a>
+
+
+[Voltar ao Índice](#indice)
+
+---
+
+## <a name="parte35">Aula 34 Ciclo de vida do JSF pt 01, Fases do ciclo de vida</a>
+
+
+[Voltar ao Índice](#indice)
+
+---
+
+## <a name="parte36">Aula 35 Ciclo de vida do JSF pt 02, Exemplo do immediate=true</a>
+
+
+[Voltar ao Índice](#indice)
+
+---
+
+## <a name="parte37">Aula 36 Internacionalização com Resource Bundles</a>
+
+
+[Voltar ao Índice](#indice)
+
+---
+
+## <a name="parte38">Aula 37 Validação customizada com Validators</a>
+
+
+[Voltar ao Índice](#indice)
+
+---
+
+## <a name="parte39">Aula 38 Conversão customizada com Converters</a>
+
+
+[Voltar ao Índice](#indice)
+
+---
+
+## <a name="parte40">Aula 39  Validando igualdade dos valores dos componentes</a>
+
+
+[Voltar ao Índice](#indice)
+
+---
+
+## <a name="parte41">Aula 40 Datatables pt 01</a>
+
+
+[Voltar ao Índice](#indice)
+
+---
+
+## <a name="parte42">Aula 41 Datatables pt 02, Ordenando dados</a>
+
+
+[Voltar ao Índice](#indice)
+
+---
+
+## <a name="parte43">Aula 42 Datatables pt 03, Editando e removendo dados</a>
+
+
+[Voltar ao Índice](#indice)
+
+---
+
+## <a name="parte44">Aula 43 Ajax pt 01, Introdução, execute e render</a>
+
+
+[Voltar ao Índice](#indice)
+
+---
+
+## <a name="parte45">Aula 44 Ajax pt 02, @form @none @this @all</a>
+
+
+[Voltar ao Índice](#indice)
+
+---
+
+## <a name="parte46">Aula 45 Ajax pt 03, Atributo listener</a>
+
+
+[Voltar ao Índice](#indice)
+
+---
+
+## <a name="parte47">Aula 46 Ajax pt 04, eventos</a>
+
+
+[Voltar ao Índice](#indice)
+
+---
+
+## <a name="parte48">Aula 47 Ajax pt 05, Agrupando componentes</a>
+
+
+[Voltar ao Índice](#indice)
+
+---
+
+## <a name="parte49">Aula 48 Ajax pt 06, Postback</a>
+
+
+[Voltar ao Índice](#indice)
+
+---
+
+## <a name="parte50">Aula 49 Ajax pt 07, Colocando requisições Ajax em fila</a>
+
+
+[Voltar ao Índice](#indice)
+
+---
+
+## <a name="parte51">Aula 50 JSF e HTML5 pt 01 Passthrough atributos</a>
+
+
+[Voltar ao Índice](#indice)
+
+---
+
+## <a name="parte52">Aula 51 JSF e HTML5 pt 02 Passthrough elementos</a>
+
+
+[Voltar ao Índice](#indice)
+
+---
+
+## <a name="parte53">Aula 52 JSF e HTML5 pt 03 Bean Validation</a>
+
+
+[Voltar ao Índice](#indice)
+
+---
+
+## <a name="parte54">Aula 53 Upload de Arquivos pt 01</a>
+
+
+[Voltar ao Índice](#indice)
+
+---
+
+## <a name="parte55">Aula 54 Upload de Arquivos pt 02   Validações básicas</a>
+
+
+[Voltar ao Índice](#indice)
+
+---
+
+## <a name="parte56">Aula 55 Gerenciamento de estados das views</a>
+
+
+[Voltar ao Índice](#indice)
+
+---
+
+## <a name="parte57">Aula 56 Views lógicas e físicas</a>
+
+
+[Voltar ao Índice](#indice)
+
+---
+
+## <a name="parte58">Aula 57 Tratando ViewExpiredException</a>
+
+
+[Voltar ao Índice](#indice)
+
+---
+
+## <a name="parte59">Aula 58 Gerenciando recursos estáticos CSS, JS e Imagens</a>
+
+
+[Voltar ao Índice](#indice)
+
+---
+
+## <a name="parte60">Aula 59 Adicionando comportamento JS a componentes</a>
+
+
+[Voltar ao Índice](#indice)
+
+---
+
+## <a name="parte61">Aula 60 Custom facelets taglib functions</a>
+
+
+[Voltar ao Índice](#indice)
+
+---
+
+## <a name="parte62">Aula 61 Criando templates com Facelets</a>
+
+
+[Voltar ao Índice](#indice)
+
+---
+
+## <a name="parte63"></a>
 
 
 [Voltar ao Índice](#indice)
