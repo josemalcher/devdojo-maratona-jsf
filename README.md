@@ -617,6 +617,169 @@ true
 
 ## <a name="parte8">Aula 07 Expression Language pt 04, Coleções</a>
 
+```java
+package com.maratonajsf.bean.estudante;
+
+import com.maratonajsf.model.Estudante;
+
+import javax.inject.Named;
+import java.io.Serializable;
+import java.util.*;
+
+import static java.util.Arrays.asList;
+
+//@ManagedBean vai ser depreciado em breve!
+//@Named("OutroNomeDeumBean")
+@Named
+public class EstudanteRegistrarBean implements Serializable {
+    private Estudante estudante = new Estudante();
+
+    /*Coleções*/
+    private String[] nomesArray = {"DevDojo", "é ", "Muito Foda!"};
+    private List<String> nomesList = asList("José", "Junior", "Ronaldo");
+    private Set<String> nomesSet = new HashSet<>(asList("José Malcher", "Roberto Junior", "Ronaldo Vieira"));
+    private Map<String, String> nomesMap = new HashMap<>();
+
+    {
+        nomesMap.put("Opt1", "Opção 01");
+        nomesMap.put("Opt2", "Opção 02");
+        nomesMap.put("Opt3", "Opção 03");
+
+        //recaptulando - imprimit MAP
+        for(Map.Entry<String,String> entry : nomesMap.entrySet()){
+            System.out.println(entry.getKey());
+            System.out.println(entry.getValue());
+        }
+    }
+
+    public Map<String, String> getNomesMap() {
+        return nomesMap;
+    }
+
+    public void setNomesMap(Map<String, String> nomesMap) {
+        this.nomesMap = nomesMap;
+    }
+
+    public Set<String> getNomesSet() {
+        return nomesSet;
+    }
+
+    public void setNomesSet(Set<String> nomesSet) {
+        this.nomesSet = nomesSet;
+    }
+
+    public List<String> getNomesList() {
+        return nomesList;
+    }
+
+    public void setNomesList(List<String> nomesList) {
+        this.nomesList = nomesList;
+    }
+
+    public String[] getNomesArray() {
+        return nomesArray;
+    }
+
+    public void setNomesArray(String[] nomesArray) {
+        this.nomesArray = nomesArray;
+    }
+
+    public Estudante getEstudante() {
+        return estudante;
+    }
+
+    public void setEstudante(Estudante estudante) {
+        this.estudante = estudante;
+    }
+}
+
+```
+
+```xhtml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+>
+<h:body>
+    <p:importEnum type="com.maratonajsf.model.enums.Turno"
+                  var="Turno" allSuffix="ALL_ENUM_VALUES"/>
+
+    <h:outputLabel value="Hello, world!"/><br></br>
+
+    <h:outputLabel value="#{estudanteRegistrarBean.estudante.nome} #{estudanteRegistrarBean.estudante.sobrenome}"></h:outputLabel>
+    <h:outputLabel value="#{estudanteRegistrarBean.estudante.nome}"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.estudante['sobrenome']}"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.estudante.nota1 eq estudanteRegistrarBean.estudante.nota2}"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.estudante.nota1 == estudanteRegistrarBean.estudante.nota2}"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.estudante.nota1 eq estudanteRegistrarBean.estudante.nota2 and
+    estudanteRegistrarBean.estudante.nome.equals('William')}"/><br/>
+
+    <h:outputText value="Comparacao notas"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.estudante.nota1 le estudanteRegistrarBean.estudante.nota2}"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.estudante.nota1 eq 0 ? 'ZERO' : 'NAO ZERO' }"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.estudante.nota1 = 40}"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.estudante.nota1}"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.estudante.nome += ' sobrenonealgumacoisa'}"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.estudante.nome}"/><br/>
+    <!--
+        Palavras reservadas:
+        and, or, not , eq, ne, lt, gt, le, ge, true, false
+        null, instanceof, empty, div e mod
+    -->
+    <h:outputLabel value="EMUMs:"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.estudante.turno eq Turno.MATUTINO}"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.estudante.turno.equals(Turno.MATUTINO)}"/><br/>
+
+    <br/>
+
+    <b><h:outputLabel value=" ----- Arrays ------" /></b><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.nomesArray[0]}
+                          #{estudanteRegistrarBean.nomesArray[1]}
+                          #{estudanteRegistrarBean.nomesArray[2]}" />
+    <br/>
+    <!-- ui:repeat array -->
+    <ui:repeat value="#{estudanteRegistrarBean.nomesArray}" var="nome">
+        <h:outputLabel value="#{nome}" />
+    </ui:repeat>
+    <br/>
+    <!-- LIST-->
+    <b><h:outputLabel value=" ----- LIST ----- " /></b><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.nomesList.get(0)}
+                          #{estudanteRegistrarBean.nomesList.get(1)}
+                          #{estudanteRegistrarBean.nomesList.get(2)}"/>;
+    <br/>
+    <!-- ui: repeat List -->
+    <ui:repeat value="#{estudanteRegistrarBean.nomesList}" var="nome">
+        <h:outputLabel value="#{nome}" />
+    </ui:repeat>
+
+    <br/>
+    <b><h:outputLabel value=" ----- SET ----- " /></b><br/>
+    <!-- ui: repeat SET -->
+    <ui:repeat value="#{estudanteRegistrarBean.nomesSet.toArray()}" var="nome">
+        <h:outputLabel value="#{nome}"/>
+    </ui:repeat>
+
+    <br/>
+    <b><h:outputLabel value=" ----- MAP ----- " /></b><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.nomesMap.get('opt1')}"/>
+    <br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.nomesMap}"/>
+    <br/>
+    <ui:repeat value="#{estudanteRegistrarBean.nomesMap.entrySet().toArray()}" var="nome">
+        <h:outputLabel value="#{nome.key} - #{nome.value}"/>
+    </ui:repeat>
+    
+</h:body>
+
+</html>
+
+```
 
 [Voltar ao Índice](#indice)
 
