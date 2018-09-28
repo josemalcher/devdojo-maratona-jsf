@@ -828,6 +828,31 @@ public class EstudanteRegistrarBean implements Serializable {
 
 ## <a name="parte10">Aula 09 Expression Language pt 06, EL com JS e CSS</a>
 
+```java
+ <br/>
+    <br/>
+
+    <!-- EL com JS e CSS -->
+    <ui:repeat value="#{estudanteRegistrarBean.nomesSet.toArray()}" varStatus="status" var="nome" >
+        #{status.index} -
+        <h:outputLabel value="#{nome}" style="color:#{status.index mod 2 == 0 ? 'red' : 'green'}"/><br/>
+    </ui:repeat>
+    <br/>
+    <br/>
+    <h:commandButton value="Fazer Mágica!" onclick="fazMagica('Hadukkeeen')"/><br/><br/>
+    <h:commandButton value="Alert Nome" onclick="fazMagica('#{estudanteRegistrarBean.estudante.nome}')"/><br/>
+
+</h:body>
+    <script type="text/javascript">
+        function fazMagica(magica) {
+            alert(magica);
+        }
+
+        function alertNome(nome) {
+            alert(nome);
+        }
+    </script>
+```
 
 [Voltar ao Índice](#indice)
 
