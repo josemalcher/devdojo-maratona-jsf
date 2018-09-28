@@ -76,7 +76,20 @@
     <ui:repeat value="#{estudanteRegistrarBean.nomesMap.entrySet().toArray()}" var="nome">
         <h:outputLabel value="#{nome.key} - #{nome.value}"/>
     </ui:repeat>
-    
+
+    <br/>
+    <b><h:outputLabel value=" ----- Testando métodos ----- " /></b><br/>
+    #{estudanteRegistrarBean.executar()}
+    #{estudanteRegistrarBean.executar(' Parametros 1')}
+    #{estudanteRegistrarBean.executar(estudanteRegistrarBean.estudante.nome)}
+    #{estudanteRegistrarBean.executarRetorno("José Malcher")}
+
+    <h:form>
+        <!--<h:commandButton value="Ir para Proxima Página" action="retorno" />-->
+        <!--<h:commandButton value="Ir para Proxima Página" actionListener="void" />-->
+        <h:commandButton value="Ir para Proxima Página" action="#{estudanteRegistrarBean.irParaIndex2}" />
+    </h:form>
+
 </h:body>
 
 

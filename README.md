@@ -788,6 +788,40 @@ public class EstudanteRegistrarBean implements Serializable {
 ## <a name="parte9">Aula 08 Expression Language pt 05, Executando métodos</a>
 
 
+- com/maratonajsf/bean/estudante/EstudanteRegistrarBean.java
+
+```java
+
+    public void executar(){
+        System.out.println("Fazendo uma busca ");
+        System.out.println("Processando ");
+        System.out.println("Exibindo os dados ");
+    }
+
+    public void executar(String param){
+        System.out.println("Fazendo uma busca com parametros " + param);
+        System.out.println("Processando " + param);
+        System.out.println("Exibindo os dados "+ param);
+    }
+    public String executarRetorno(String nome){
+        return "ALUNO: "+ nome;
+    }
+
+    public String irParaIndex2(){
+        return "index2?faces-redirect=true";
+    }
+```
+
+- index.xhtml
+
+```xhtml
+    <h:form>
+        <!--<h:commandButton value="Ir para Proxima Página" action="retorno" />-->
+        <!--<h:commandButton value="Ir para Proxima Página" actionListener="void" />-->
+        <h:commandButton value="Ir para Proxima Página" action="#{estudanteRegistrarBean.irParaIndex2}" />
+    </h:form>
+```
+
 [Voltar ao Índice](#indice)
 
 ---

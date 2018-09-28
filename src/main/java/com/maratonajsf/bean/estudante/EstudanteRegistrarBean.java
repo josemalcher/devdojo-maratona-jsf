@@ -26,10 +26,29 @@ public class EstudanteRegistrarBean implements Serializable {
         nomesMap.put("Opt3", "Opção 03");
 
         //recaptulando - imprimit MAP
-        for(Map.Entry<String,String> entry : nomesMap.entrySet()){
+       /* for(Map.Entry<String,String> entry : nomesMap.entrySet()){
             System.out.println(entry.getKey());
             System.out.println(entry.getValue());
-        }
+        }*/
+    }
+
+    public void executar(){
+        System.out.println("Fazendo uma busca ");
+        System.out.println("Processando ");
+        System.out.println("Exibindo os dados ");
+    }
+
+    public void executar(String param){
+        System.out.println("Fazendo uma busca com parametros " + param);
+        System.out.println("Processando " + param);
+        System.out.println("Exibindo os dados "+ param);
+    }
+    public String executarRetorno(String nome){
+        return "ALUNO: "+ nome;
+    }
+
+    public String irParaIndex2(){
+        return "index2?faces-redirect=true";
     }
 
     public Map<String, String> getNomesMap() {
