@@ -1165,6 +1165,361 @@ public class EstudanteRegistrarBean implements Serializable {
 
 ## <a name="parte12">Aula 11 Expression Language pt 08, EL lambdas e streams</a>
 
+```xhtml
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+>
+<h:head>
+
+</h:head>
+<h:body>
+    <p:importEnum type="com.maratonajsf.model.enums.Turno"
+                  var="Turno" allSuffix="ALL_ENUM_VALUES"/>
+
+    <h:outputLabel value="Hello, world!"/><br></br>
+
+    <h:outputLabel
+            value="#{estudanteRegistrarBean.estudante.nome} #{estudanteRegistrarBean.estudante.sobrenome}"></h:outputLabel>
+    <h:outputLabel value="#{estudanteRegistrarBean.estudante.nome}"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.estudante['sobrenome']}"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.estudante.nota1 eq estudanteRegistrarBean.estudante.nota2}"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.estudante.nota1 == estudanteRegistrarBean.estudante.nota2}"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.estudante.nota1 eq estudanteRegistrarBean.estudante.nota2 and
+    estudanteRegistrarBean.estudante.nome.equals('William')}"/><br/>
+
+    <h:outputText value="Comparacao notas"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.estudante.nota1 le estudanteRegistrarBean.estudante.nota2}"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.estudante.nota1 eq 0 ? 'ZERO' : 'NAO ZERO' }"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.estudante.nota1 = 40}"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.estudante.nota1}"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.estudante.nome += ' sobrenonealgumacoisa'}"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.estudante.nome}"/><br/>
+    <!--
+        Palavras reservadas:
+        and, or, not , eq, ne, lt, gt, le, ge, true, false
+        null, instanceof, empty, div e mod
+    -->
+    <h:outputLabel value="EMUMs:"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.estudante.turno eq Turno.MATUTINO}"/><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.estudante.turno.equals(Turno.MATUTINO)}"/><br/>
+
+    <br/>
+
+    <b><h:outputLabel value=" ----- Arrays ------"/></b><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.nomesArray[0]}
+                          #{estudanteRegistrarBean.nomesArray[1]}
+                          #{estudanteRegistrarBean.nomesArray[2]}"/>
+    <br/>
+    <!-- ui:repeat array -->
+    <ui:repeat value="#{estudanteRegistrarBean.nomesArray}" var="nome">
+        <h:outputLabel value="#{nome}"/>
+    </ui:repeat>
+    <br/>
+    <!-- LIST-->
+    <b><h:outputLabel value=" ----- LIST ----- "/></b><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.nomesList.get(0)}
+                          #{estudanteRegistrarBean.nomesList.get(1)}
+                          #{estudanteRegistrarBean.nomesList.get(2)}"/>;
+    <br/>
+    <!-- ui: repeat List -->
+    <ui:repeat value="#{estudanteRegistrarBean.nomesList}" var="nome">
+        <h:outputLabel value="#{nome}"/>
+    </ui:repeat>
+
+    <br/>
+    <b><h:outputLabel value=" ----- SET ----- "/></b><br/>
+    <!-- ui: repeat SET -->
+    <ui:repeat value="#{estudanteRegistrarBean.nomesSet.toArray()}" var="nome">
+        <h:outputLabel value="#{nome}"/>
+    </ui:repeat>
+
+    <br/>
+    <b><h:outputLabel value=" ----- MAP ----- "/></b><br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.nomesMap.get('opt1')}"/>
+    <br/>
+    <h:outputLabel value="#{estudanteRegistrarBean.nomesMap}"/>
+    <br/>
+    <ui:repeat value="#{estudanteRegistrarBean.nomesMap.entrySet().toArray()}" var="nome">
+        <h:outputLabel value="#{nome.key} - #{nome.value}"/>
+    </ui:repeat>
+
+    <br/>
+    <b><h:outputLabel value=" ----- Testando métodos ----- "/></b><br/>
+    #{estudanteRegistrarBean.executar()}
+    #{estudanteRegistrarBean.executar(' Parametros 1')}
+    #{estudanteRegistrarBean.executar(estudanteRegistrarBean.estudante.nome)}
+    #{estudanteRegistrarBean.executarRetorno("José Malcher")}
+
+    <h:form>
+        <!--<h:commandButton value="Ir para Proxima Página" action="retorno" />-->
+        <!--<h:commandButton value="Ir para Proxima Página" actionListener="void" />-->
+        <h:commandButton value="Ir para Proxima Página" action="#{estudanteRegistrarBean.irParaIndex2}"/>
+    </h:form>
+    <br/>
+    <br/>
+
+    <!-- EL com JS e CSS -->
+    <ui:repeat value="#{estudanteRegistrarBean.nomesSet.toArray()}" varStatus="status" var="nome">
+        #{status.index} -
+        <h:outputLabel value="#{nome}" style="color:#{status.index mod 2 == 0 ? 'red' : 'green'}"/><br/>
+    </ui:repeat>
+    <br/>
+    <br/>
+    <h:commandButton value="Fazer Mágica!" onclick="fazMagica('Hadukkeeen')"/><br/><br/>
+    <h:commandButton value="Alert Nome" onclick="fazMagica('#{estudanteRegistrarBean.estudante.nome}')"/><br/>
+
+    <br/>
+    <br/>
+
+    <h:form id="form">
+        <h:commandButton value="Exibir Notas">
+            <f:ajax listener="#{estudanteRegistrarBean.exibirNotas()}" render="notasGrid"/>
+        </h:commandButton>
+        <h:commandButton value="Esconder Notas">
+            <f:ajax listener="#{estudanteRegistrarBean.esconderNotas()}" render="notasGrid"/>
+        </h:commandButton>
+        <br/>
+        <h:panelGrid id="notasGrid">
+            <h:outputText value="#{estudanteRegistrarBean.estudante.nome}"/>
+            <h:outputText value="#{estudanteRegistrarBean.estudante.sobrenome}"/>
+            <h:outputText value="#{estudanteRegistrarBean.estudante.turno}"/>
+            <h:outputText value="#{estudanteRegistrarBean.estudante.nota1}"
+                          rendered="#{estudanteRegistrarBean.mostrarNotas}"/>
+            <h:outputText value="#{estudanteRegistrarBean.estudante.nota2}"
+                          rendered="#{estudanteRegistrarBean.mostrarNotas}"/>
+            <h:outputText value="#{estudanteRegistrarBean.estudante.nota3}"
+                          rendered="#{estudanteRegistrarBean.mostrarNotas}"/>
+        </h:panelGrid>
+
+    </h:form>
+    <br/>
+    <br/>
+    <h:form>
+        <h:commandButton value="Exibir Link">
+            <f:ajax listener="#{estudanteRegistrarBean.exibirLink()}" render="pgLink"/>
+        </h:commandButton>
+        <h:commandButton value="Esconder Link">
+            <f:ajax listener="#{estudanteRegistrarBean.esconderLink}" render="pgLink"/>
+        </h:commandButton>
+        <h:panelGrid id="pgLink">
+            <ui:fragment id="fragmentLink" rendered="#{estudanteRegistrarBean.mostrarLink}">
+                <a href="http://josemalcher.net" target="_black">www.josemalcher.net</a>
+            </ui:fragment>
+        </h:panelGrid>
+    </h:form>
+
+    <br/>
+            <!-- LAMBDAS 3.0 EL-->
+    #{(soma -> soma + num)(10)}
+    <br/>
+    #{((v1,v2,v3)->v1*v2*v3)(1,5,10)}
+    <br/>
+    #{(x -> x*x*x)(2)}
+    <br/>
+    #{cubo=( x -> x*x*x); cubo(10)}
+    <br/>
+    <br/>
+
+
+    <c:set var="numerosList" value="#{[1,2,3,4,5,6,7,8,9,10]}"/>
+
+    <!--Lists-->
+    <b><h:outputLabel value=" ----- LIST ----- "/></b><br/>
+    <ui:repeat value="#{['DevDojo','e','foda']}" var="fodeza">
+        #{fodeza}
+    </ui:repeat>
+    <br/>
+    <!--Set-->
+    <b><h:outputLabel value=" ----- SET ----- "/></b><br/>
+    <ui:repeat value="#{{'DevDojo','É','Foda','Foda'}}" var="fodeza">
+        #{fodeza}
+    </ui:repeat>
+    <br/>
+
+
+    <!--Map-->
+    <b><h:outputLabel value=" ----- MAP ----- "/></b><br/>
+    <ui:repeat value="#{{'Melhor Lugar':'Devdojo','Melhor curso': 'Maratonas'}}" var="fodezaMap">
+        <ui:repeat value="#{fodezaMap}" var="entry">
+            #{entry.key} - #{entry.value}
+        </ui:repeat>
+    </ui:repeat>
+    <br/>
+
+    <ui:repeat value="#{numerosList.stream().filter(v-> v>5)
+    .toList()}" var="result">
+        #{result}
+    </ui:repeat>
+    <br/>
+    #{numerosList.stream().average().get()}
+    <br/>
+    #{numerosList.stream().sum()}
+    <br/>
+    #{numerosList.stream().filter(v-> v>5).sum()}
+
+</h:body>
+<script type="text/javascript">
+    function fazMagica(magica) {
+        alert(magica);
+    }
+
+    function alertNome(nome) {
+        alert(nome);
+    }
+</script>
+
+
+</html>
+
+```
+
+```java
+package com.maratonajsf.bean.estudante;
+
+import com.maratonajsf.model.Estudante;
+
+import javax.el.LambdaExpression;
+import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
+import java.io.Serializable;
+import java.util.*;
+
+import static java.util.Arrays.asList;
+
+//@ManagedBean vai ser depreciado em breve!
+//@Named("OutroNomeDeumBean")
+@Named
+@ViewScoped
+public class EstudanteRegistrarBean implements Serializable {
+    private Estudante estudante = new Estudante();
+
+    /*Coleções*/
+    private String[] nomesArray = {"DevDojo", "é ", "Muito Foda!"};
+    private List<String> nomesList = asList("José", "Junior", "Ronaldo");
+    private Set<String> nomesSet = new HashSet<>(asList("José Malcher", "Roberto Junior", "Ronaldo Vieira"));
+    private Map<String, String> nomesMap = new HashMap<>();
+
+    private boolean mostrarNotas;
+    private boolean mostrarLink;
+
+    {
+        nomesMap.put("Opt1", "Opção 01");
+        nomesMap.put("Opt2", "Opção 02");
+        nomesMap.put("Opt3", "Opção 03");
+
+        //recaptulando - imprimit MAP
+       /* for(Map.Entry<String,String> entry : nomesMap.entrySet()){
+            System.out.println(entry.getKey());
+            System.out.println(entry.getValue());
+        }*/
+    }
+
+    public void calculaCubo(LambdaExpression le, long value){
+        long result = (long) le.invoke(FacesContext.getCurrentInstance().getELContext(), value);
+        System.out.println(result);
+    }
+
+    public void exibirNotas() {
+        this.mostrarNotas = true;
+    }
+
+    public void esconderNotas() {
+        this.mostrarNotas = false;
+    }
+
+    public void exibirLink(){
+        this.mostrarLink = true;
+    }
+
+    public void esconderLink(){
+        this.mostrarLink = false;
+    }
+
+    public void executar() {
+        System.out.println("Fazendo uma busca ");
+        System.out.println("Processando ");
+        System.out.println("Exibindo os dados ");
+    }
+
+    public void executar(String param) {
+        System.out.println("Fazendo uma busca com parametros " + param);
+        System.out.println("Processando " + param);
+        System.out.println("Exibindo os dados " + param);
+    }
+
+    public String executarRetorno(String nome) {
+        return "ALUNO: " + nome;
+    }
+
+    public String irParaIndex2() {
+        return "index2?faces-redirect=true";
+    }
+
+    public boolean isMostrarLink() {
+        return mostrarLink;
+    }
+
+    public void setMostrarLink(boolean mostrarLink) {
+        this.mostrarLink = mostrarLink;
+    }
+
+    public boolean isMostrarNotas() {
+        return mostrarNotas;
+    }
+
+    public void setMostrarNotas(boolean mostrarNotas) {
+        this.mostrarNotas = mostrarNotas;
+    }
+
+    public Map<String, String> getNomesMap() {
+        return nomesMap;
+    }
+
+    public void setNomesMap(Map<String, String> nomesMap) {
+        this.nomesMap = nomesMap;
+    }
+
+    public Set<String> getNomesSet() {
+        return nomesSet;
+    }
+
+    public void setNomesSet(Set<String> nomesSet) {
+        this.nomesSet = nomesSet;
+    }
+
+    public List<String> getNomesList() {
+        return nomesList;
+    }
+
+    public void setNomesList(List<String> nomesList) {
+        this.nomesList = nomesList;
+    }
+
+    public String[] getNomesArray() {
+        return nomesArray;
+    }
+
+    public void setNomesArray(String[] nomesArray) {
+        this.nomesArray = nomesArray;
+    }
+
+    public Estudante getEstudante() {
+        return estudante;
+    }
+
+    public void setEstudante(Estudante estudante) {
+        this.estudante = estudante;
+    }
+}
+
+```
 
 [Voltar ao Índice](#indice)
 
