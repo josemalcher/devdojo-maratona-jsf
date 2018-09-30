@@ -9,11 +9,17 @@
 </h:head>
 <h:body>
     <h:form>
+        <br/>
+        <h:outputText value="#{testeApplicationBean.categoriaList}" />
+        <br/>
+
         <h:outputText value="#{testeViewBean.personagemSelecionado}"/><br/>
 
         <h:commandButton value="Selecionar Personagem" actionListener="#{testeViewBean.selecionarPersonagem()}"/>
         <h:commandButton value="Selecionar Personagem Forward" actionListener="#{testeViewBean.selecionarPersonagem()}" action="view2"/>
         <h:commandButton value="Selecionar Personagem Redirect" actionListener="#{testeViewBean.selecionarPersonagem()}" action="view2?faces-redirect=true"/>
+
+        <h:commandButton value="MUDAR LISTA APPLICATIONBean" actionListener="#{testeApplicationBean.mudarLista()}"/>
 
     </h:form>
 </h:body>
