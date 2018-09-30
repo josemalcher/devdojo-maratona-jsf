@@ -1876,6 +1876,124 @@ public class TesteApplicationBean implements Serializable {
 
 ## <a name="parte17">Aula 16 Escopos pt 05, ConversationScoped</a>
 
+```java
+package com.maratonajsf.bean.conversation;
+
+import javax.enterprise.context.Conversation;
+import javax.enterprise.context.ConversationScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+
+import static java.util.Arrays.asList;
+
+@Named
+@ConversationScoped
+public class TesteConversationBean implements Serializable {
+
+    private List<String> personagens;
+    private List<String> personagemSelecionado = new ArrayList<>();
+
+    @Inject
+    private Conversation conversation;
+
+    //@PostConstruct
+    public void init(){
+        System.out.println(" ---->>> Entrou no PostConstruct do SessionScoped <<<---- ");
+        personagens = asList("GOKU", "Kuririn", "Vegeta");
+
+        if(conversation.isTransient()){
+            // Long Running
+            conversation.begin();
+            System.out.println("Iniciando conversation scoped ID: "+ conversation.getId() );
+        }
+    }
+
+    public String endConversation(){
+        if(!conversation.isTransient()){
+            conversation.end();
+            System.out.println("Finalizando conversation");
+        }
+        return "conversartion?faces-redirect=true";
+    }
+
+    public void selecionarPersonagem() {
+        int index = ThreadLocalRandom.current().nextInt(3);
+        String personagem = personagens.get(index);
+        personagemSelecionado.add(personagem);
+    }
+
+    public List<String> getPersonagemSelecionado() {
+        return personagemSelecionado;
+    }
+
+    public void setPersonagemSelecionado(List<String> personagemSelecionado) {
+        this.personagemSelecionado = personagemSelecionado;
+    }
+
+    public Conversation getConversation() {
+        return conversation;
+    }
+
+    public void setConversation(Conversation conversation) {
+        this.conversation = conversation;
+    }
+}
+
+```
+
+```xhtml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <f:metadata>
+        <f:viewAction action="#{testeConversationBean.init()}"/>
+    </f:metadata>
+</h:head>
+<h:body>
+    <h:form>
+        <br/>
+        <h:outputText value="#{testeApplicationBean.categoriaList}" />
+        <br/>
+
+        <h:outputText value="#{testeConversationBean.personagemSelecionado}"/><br/>
+
+        <h:commandButton value="Selecionar Personagem" actionListener="#{testeConversationBean.selecionarPersonagem()}"/>
+        <h:commandButton value="Selecionar Personagem Forward" actionListener="#{testeConversationBean.selecionarPersonagem()}" action="conversation2"/>
+        <h:commandButton value="Selecionar Personagem Redirect" actionListener="#{testeConversationBean.selecionarPersonagem()}" action="conversation22?faces-redirect=true"/>
+
+        <h:commandButton value="MUDAR LISTA APPLICATIONBean" actionListener="#{testeConversationBean.mudarLista()}"/>
+
+        <h:link outcome="conversation2" value="Vai para conversation 2" rendered="#{!testeConversationBean.conversation.transient}" >
+            <f:param name="cid" value="#{testeConversationBean.conversation.id}" />
+        </h:link>
+
+        <h:commandButton value="Finalizar Conversartion Scoped"
+                         action="#{testeConversationBean.endConversation}"/>
+
+    </h:form>
+</h:body>
+
+</html>
+
+```
+
+- WEB-INF/web.xml
+
+```xml
+    <error-page>
+        <location>/error.xhtml</location>
+    </error-page>
+```
+
 
 [Voltar ao Índice](#indice)
 
