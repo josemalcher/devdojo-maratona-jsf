@@ -1527,6 +1527,93 @@ public class EstudanteRegistrarBean implements Serializable {
 
 ## <a name="parte13">Aula 12 Escopos pt 01, RequestScoped</a>
 
+![Escopos](https://github.com/josemalcher/devdojo-maratona-jsf/blob/master/readme-img/escopos.png?raw=true)
+
+```java
+package com.maratonajsf.bean.request;
+
+
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+
+import static java.util.Arrays.asList;
+
+@Named
+@RequestScoped
+public class TesteRequestBean implements Serializable {
+
+    private List<String> personagens = asList("Personagem 1","Personagem 2", "Persona 3");
+    private List<String> personagemSelecionado = new ArrayList<>();
+
+    public void selecionarPersonagem(){
+        int index =ThreadLocalRandom.current().nextInt(3);
+        String personagem = personagens.get(index);
+        personagemSelecionado.add(personagem);
+    }
+
+    public List<String> getPersonagemSelecionado() {
+        return personagemSelecionado;
+    }
+
+    public void setPersonagemSelecionado(List<String> personagemSelecionado) {
+        this.personagemSelecionado = personagemSelecionado;
+    }
+}
+
+```
+
+```xhtml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+
+</h:head>
+<h:body>
+    <h:form>
+        <h:outputText value="#{testeRequestBean.personagemSelecionado}"/><br/>
+
+        <h:commandButton value="Selecionar Personagem" actionListener="#{testeRequestBean.selecionarPersonagem()}"/>
+        <h:commandButton value="Selecionar Personagem Forward" actionListener="#{testeRequestBean.selecionarPersonagem()}" action="index2"/>
+        <h:commandButton value="Selecionar Personagem Redirect" actionListener="#{testeRequestBean.selecionarPersonagem()}" action="index2?faces-redirect=true"/>
+
+    </h:form>
+</h:body>
+
+</html>
+
+```
+
+```xhtml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+
+</h:head>
+<f:view>
+    <h:outputLabel value="INDEX 2!"/>
+</f:view>
+<h:outputText value="#{testeRequestBean.personagemSelecionado}"></h:outputText>
+</html>
+
+```
+
+![redirect](https://github.com/josemalcher/devdojo-maratona-jsf/blob/master/readme-img/Java%20Servlet%20HTTP%20Redirect.jpeg?raw=true)
+
+![forwarding](https://github.com/josemalcher/devdojo-maratona-jsf/blob/master/readme-img/Java%20Servlet%20HTTP%20Forward.jpeg?raw=true)
 
 [Voltar ao Índice](#indice)
 
