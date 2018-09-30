@@ -1729,12 +1729,101 @@ public class TesteSessionBean implements Serializable {
 
 ## <a name="parte15">Aula 14 Escopos pt 03, ViewScoped</a>
 
+```java
+package com.maratonajsf.bean.view;
+
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+
+import static java.util.Arrays.asList;
+
+@Named
+@ViewScoped
+public class TesteViewBean implements Serializable {
+
+    private List<String> personagens;
+    private List<String> personagemSelecionado = new ArrayList<>();
+
+    @PostConstruct
+    public void init(){
+        System.out.println(" ---->>> Entrou no PostConstruct do ViewScoped <<<---- ");
+        personagens = asList("JOSE", "MARIA", "JORGE");
+    }
+
+
+    public void selecionarPersonagem() {
+        int index = ThreadLocalRandom.current().nextInt(3);
+        String personagem = personagens.get(index);
+        personagemSelecionado.add(personagem);
+    }
+
+    public List<String> getPersonagemSelecionado() {
+        return personagemSelecionado;
+    }
+
+    public void setPersonagemSelecionado(List<String> personagemSelecionado) {
+        this.personagemSelecionado = personagemSelecionado;
+    }
+}
+
+```
+
+```xhtml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+</h:head>
+<h:body>
+    <h:form>
+        <h:outputText value="#{testeViewBean.personagemSelecionado}"/><br/>
+
+        <h:commandButton value="Selecionar Personagem" actionListener="#{testeViewBean.selecionarPersonagem()}"/>
+        <h:commandButton value="Selecionar Personagem Forward" actionListener="#{testeViewBean.selecionarPersonagem()}" action="view2"/>
+        <h:commandButton value="Selecionar Personagem Redirect" actionListener="#{testeViewBean.selecionarPersonagem()}" action="view2?faces-redirect=true"/>
+
+    </h:form>
+</h:body>
+
+</html>
+
+```
+
+```xhtml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+</h:head>
+<f:view>
+    <h:outputLabel value="Pegando valor do VIEW BEAN"/>
+</f:view>
+<h:outputText value="#{testeViewBean.personagemSelecionado}"></h:outputText>
+</html>
+
+```
 
 [Voltar ao Índice](#indice)
 
 ---
 
 ## <a name="parte16">Aula 15 Escopos pt 04, ApplicationScoped</a>
+
 
 
 [Voltar ao Índice](#indice)
