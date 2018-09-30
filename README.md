@@ -1621,6 +1621,107 @@ public class TesteRequestBean implements Serializable {
 
 ## <a name="parte14">Aula 13  Escopos pt 02, SessionScoped</a>
 
+```java
+package com.maratonajsf.bean.session;
+
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.inject.Named;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+
+import static java.util.Arrays.asList;
+
+@Named
+@SessionScoped
+public class TesteSessionBean implements Serializable {
+
+    private List<String> personagens;
+    private List<String> personagemSelecionado = new ArrayList<>();
+
+    @PostConstruct
+    public void init(){
+        System.out.println(" ---->>> Entrou no PostConstruct do SessionScoped <<<---- ");
+        personagens = asList("GOKU", "Kuririn", "Vegeta");
+    }
+
+    public String logout(){
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "session?faces-redirect=true";
+    }
+
+    public void selecionarPersonagem() {
+        int index = ThreadLocalRandom.current().nextInt(3);
+        String personagem = personagens.get(index);
+        personagemSelecionado.add(personagem);
+    }
+
+    public List<String> getPersonagemSelecionado() {
+        return personagemSelecionado;
+    }
+
+    public void setPersonagemSelecionado(List<String> personagemSelecionado) {
+        this.personagemSelecionado = personagemSelecionado;
+    }
+}
+
+```
+
+```xhtml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+</h:head>
+<h:body>
+    <h:form>
+        <h:outputText value="#{testeSessionBean.personagemSelecionado}"/><br/>
+
+        <h:commandButton value="Selecionar Personagem" actionListener="#{testeSessionBean.selecionarPersonagem()}"/>
+        <h:commandButton value="Selecionar Personagem Forward" actionListener="#{testeSessionBean.selecionarPersonagem()}" action="session2"/>
+        <h:commandButton value="Selecionar Personagem Redirect" actionListener="#{testeSessionBean.selecionarPersonagem()}" action="session2?faces-redirect=true"/>
+        <h:commandButton value="Sair" action="#{testeSessionBean.logout}"/>
+
+    </h:form>
+</h:body>
+
+</html>
+
+```
+
+```xhtml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+</h:head>
+<f:view>
+    <h:outputLabel value="Pegando valor do sessionBean"/>
+</f:view>
+<h:outputText value="#{testeSessionBean.personagemSelecionado}"></h:outputText>
+</html>
+
+```
+- WEB-INF/web.xml
+
+```xml
+
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+
+```
 
 [Voltar ao Índice](#indice)
 
