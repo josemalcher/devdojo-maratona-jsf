@@ -9,7 +9,7 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
     <welcome-file-list>
-        <welcome-file>conversartion.xhtml</welcome-file>
+        <welcome-file>inicioFlow.xhtml</welcome-file>
     </welcome-file-list>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
@@ -19,10 +19,14 @@
         <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
         <param-value>true</param-value>
     </context-param>
+    <!--<context-param>-->
+        <!--<param-name>javax.faces.CONFIG_FILES</param-name>-->
+        <!--<param-value>/registration/registration-flow.xml</param-value>-->
+    <!--</context-param>-->
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>
-    <error-page>
-        <location>/error.xhtml</location>
-    </error-page>
+    <!--<error-page>-->
+        <!--<location>/error.xhtml</location>-->
+    <!--</error-page>-->
 </web-app>

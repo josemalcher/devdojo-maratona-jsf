@@ -2001,6 +2001,126 @@ public class TesteConversationBean implements Serializable {
 
 ## <a name="parte18">Aula 17 Escopos pt 06, FlowScoped pt 01, Introdução e funcionamento</a>
 
+```java
+package com.maratonajsf.bean.flow;
+
+import javax.faces.flow.FlowScoped;
+import javax.inject.Named;
+import java.io.Serializable;
+
+@Named
+@FlowScoped(value = "registration")
+public class testeFlowbean implements Serializable {
+    private String nome;
+    private String sobrenome;
+    private String endereco;
+
+    public String salvar(){
+        System.out.println("Salvando  no banco ");
+        System.out.println(nome);
+        System.out.println(sobrenome);
+        System.out.println(endereco);
+        return "exitToInicio";
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getSobrenome() {
+        return sobrenome;
+    }
+
+    public void setSobrenome(String sobrenome) {
+        this.sobrenome = sobrenome;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+}
+
+```
+
+- registration/registration-flow.xml
+
+```xml
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+    http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+    <flow-definition id="registration">
+        <flow-return id="exitToInicio">
+            <from-outcome>/inicioFlow.xhtml</from-outcome>
+        </flow-return>
+        <flow-return id="exitToIndex">
+            <from-outcome>/index.xhtml</from-outcome>
+        </flow-return>
+
+    </flow-definition>
+</faces-config>
+```
+
+```xhtml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+</h:head>
+
+<f:view>
+    <br/>
+    <h:outputText value="PONTO DE ENTRADA FLOWScoped"/>
+    <h:form>
+        <h:commandButton value="Entrar no FLow" action="registration"/>
+    </h:form>
+</f:view>
+
+</html>
+
+
+```
+
+- registration/registration.xhtml 
+
+```xhtml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head></h:head>
+<h:body>
+    <h2>Primeira página de registro flowScope</h2>
+    <h:form>
+        <h:panelGrid columns="2">
+            <h:outputLabel value="Nome"/>
+            <h:inputText value="#{testeFlowbean.nome}"/>
+
+            <h:outputLabel value="Sobrenome"/>
+            <h:inputText value="#{testeFlowbean.sobrenome}"/>
+        </h:panelGrid>
+        <h:commandButton value="Próxima Página" action="registration2?faces-redirect=true"/>
+    </h:form>
+</h:body>
+</html>
+
+```
 
 [Voltar ao Índice](#indice)
 
