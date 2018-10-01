@@ -8,15 +8,17 @@
 <h:head></h:head>
 <h:body>
     <h2>Primeira página de registro flowScope</h2>
+    <h:messages/>
     <h:form>
         <h:panelGrid columns="2">
             <h:outputLabel value="Nome"/>
-            <h:inputText value="#{testeFlowbean.nome}"/>
+            <h:inputText value="#{testeFlowbean.nome}" required="true" requiredMessage="Nome Obrigadorio"/>
 
             <h:outputLabel value="Sobrenome"/>
             <h:inputText value="#{testeFlowbean.sobrenome}"/>
         </h:panelGrid>
-        <h:commandButton value="Próxima Página" action="registration2?faces-redirect=true"/>
+        <!--<h:commandButton value="Próxima Página" action="registration2?faces-redirect=true"/>-->
+        <h:commandButton value="Próxima Página" action="registrationPage2"/>
     </h:form>
 </h:body>
 </html>

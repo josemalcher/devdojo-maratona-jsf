@@ -2129,6 +2129,69 @@ public class testeFlowbean implements Serializable {
 ## <a name="parte19">Aula 18 Escopos pt 07, FlowScoped pt 02, Configuração do flowxml</a>
 
 
+- registration/registration-flow.xml
+
+```xml
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+    http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+    <flow-definition id="registration">
+
+        <start-node>registrationInicio</start-node>
+        <view id="registrationInicio">
+            <vdl-document>/registration/registrationPersonalizado.xhtml</vdl-document>
+        </view>
+        <switch id="registrationPage2">
+            <case>
+                <if>#{not empty testeFlowbean.nome and not empty testeFlowbean.sobrenome}</if>
+                <from-outcome>registration2</from-outcome>
+            </case>
+            <default-outcome>registrationInicio</default-outcome>
+        </switch>
+        <flow-return id="exitToInicio">
+            <from-outcome>/inicioFlow.xhtml</from-outcome>
+        </flow-return>
+        <flow-return id="exitToIndex">
+            <from-outcome>/index.xhtml</from-outcome>
+        </flow-return>
+        <finalizer>#{testeFlowbean.salvar()}</finalizer>
+    </flow-definition>
+</faces-config>
+
+```
+
+- 
+
+```xhtml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head></h:head>
+<h:body>
+    <h2>Primeira página de registro flowScope</h2>
+    <h:messages/>
+    <h:form>
+        <h:panelGrid columns="2">
+            <h:outputLabel value="Nome"/>
+            <h:inputText value="#{testeFlowbean.nome}" required="true" requiredMessage="Nome Obrigadorio"/>
+
+            <h:outputLabel value="Sobrenome"/>
+            <h:inputText value="#{testeFlowbean.sobrenome}"/>
+        </h:panelGrid>
+        <!--<h:commandButton value="Próxima Página" action="registration2?faces-redirect=true"/>-->
+        <h:commandButton value="Próxima Página" action="registrationPage2"/>
+    </h:form>
+</h:body>
+</html>
+
+```
+
 [Voltar ao Índice](#indice)
 
 ---

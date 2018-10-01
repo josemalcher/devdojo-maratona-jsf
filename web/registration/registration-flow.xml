@@ -4,12 +4,24 @@
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
     http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
     <flow-definition id="registration">
+
+        <start-node>registrationInicio</start-node>
+        <view id="registrationInicio">
+            <vdl-document>/registration/registrationPersonalizado.xhtml</vdl-document>
+        </view>
+        <switch id="registrationPage2">
+            <case>
+                <if>#{not empty testeFlowbean.nome and not empty testeFlowbean.sobrenome}</if>
+                <from-outcome>registration2</from-outcome>
+            </case>
+            <default-outcome>registrationInicio</default-outcome>
+        </switch>
         <flow-return id="exitToInicio">
             <from-outcome>/inicioFlow.xhtml</from-outcome>
         </flow-return>
         <flow-return id="exitToIndex">
             <from-outcome>/index.xhtml</from-outcome>
         </flow-return>
-
+        <finalizer>#{testeFlowbean.salvar()}</finalizer>
     </flow-definition>
 </faces-config>
