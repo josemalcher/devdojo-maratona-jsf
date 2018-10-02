@@ -2329,10 +2329,224 @@ public class TesteFlowNestedBean implements Serializable {
 
 ## <a name="parte21">Aula 20 Escopos pt 09, FlowScoped pt 04, FlowBuilder, Flows com anotações</a>
 
+- com.maratonajsf.bean.flowbuilder.TesteFlowBuilderNestedBean
+```java
+package com.maratonajsf.bean.flowbuilder;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.flow.FlowScoped;
+import javax.inject.Named;
+import java.io.Serializable;
+
+@Named
+@FlowScoped(value = "newpendencies")
+public class TesteFlowBuilderNestedBean implements Serializable {
+    private String userName;
+    private String userSurname;
+
+    public String validarUser(){
+        System.out.println("Fazendo consulta no SPC");
+        System.out.println("Fazendo consulta no SERASA");
+        System.out.println("Fazendo consulta no DEUS");
+        System.out.println("Fazendo consulta ETC...");
+
+        /*if(true){
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Usuário não passou nas pendencias", "Outros Detalhes com administrador!" ));
+            return null;
+        }*/
+
+        return "proceedToNewRegistration3";
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserSurname() {
+        return userSurname;
+    }
+
+    public void setUserSurname(String userSurname) {
+        this.userSurname = userSurname;
+    }
+}
+
+```
+
+- com.maratonajsf.bean.flowbuilder.TesteFlowBuilderBean
+
+```java
+package com.maratonajsf.bean.flowbuilder;
+
+import javax.faces.flow.FlowScoped;
+import javax.inject.Named;
+import java.io.Serializable;
+
+@Named
+@FlowScoped(value = "newregistration")
+public class TesteFlowBuilderBean implements Serializable {
+    private String nome;
+    private String sobrenome;
+    private String endereco;
+
+    public void salvar(){
+        System.out.println("Salvando  no banco ");
+        System.out.println(nome);
+        System.out.println(sobrenome);
+        System.out.println(endereco);
+        //return "exitToInicio";
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getSobrenome() {
+        return sobrenome;
+    }
+
+    public void setSobrenome(String sobrenome) {
+        this.sobrenome = sobrenome;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+}
+
+```
+
+- com.maratonajsf.flowbuilder.NewPendenciesFlowBuilder
+
+```java
+package com.maratonajsf.flowbuilder;
+
+import javax.enterprise.inject.Produces;
+import javax.faces.flow.Flow;
+import javax.faces.flow.builder.FlowBuilder;
+import javax.faces.flow.builder.FlowBuilderParameter;
+import javax.faces.flow.builder.FlowDefinition;
+import java.io.Serializable;
+
+public class NewPendenciesFlowBuilder implements Serializable {
+
+    @Produces
+    @FlowDefinition
+    public Flow defineFlow(@FlowBuilderParameter FlowBuilder flowBuilder) {
+        String flowId = "newpendencies";
+        flowBuilder.id("",flowId);
+        flowBuilder.viewNode(flowId, "/newpendencies/newpendencies.xhtml").markAsStartNode();
+
+        flowBuilder.returnNode("proceedToNewRegistration3")
+                .fromOutcome("/newregistration/newregistration3.xhtml");
+        flowBuilder.returnNode("exitToNewInicio")
+                .fromOutcome("/newregistration/newregistration.xhtml");
+
+        flowBuilder.inboundParameter("userName","#{testeFlowBuilderNestedBean.userName}");
+        flowBuilder.inboundParameter("userSurname","#{testeFlowBuilderNestedBean.userSurname}");
+
+        return flowBuilder.getFlow();
+    }
+
+}
+
+```
+- com.maratonajsf.flowbuilder.NewRegistrationFlowBuilder
+
+```java
+package com.maratonajsf.flowbuilder;
+
+import javax.enterprise.inject.Produces;
+import javax.faces.flow.Flow;
+import javax.faces.flow.builder.FlowBuilder;
+import javax.faces.flow.builder.FlowBuilderParameter;
+import javax.faces.flow.builder.FlowDefinition;
+import java.io.Serializable;
+
+public class NewRegistrationFlowBuilder implements Serializable {
+
+    @Produces
+    @FlowDefinition
+    public Flow defineFlow(@FlowBuilderParameter FlowBuilder flowBuilder){
+        String flowId = "newregistration";
+        flowBuilder.id("", flowId);
+        //flowBuilder.viewNode(flowId, "/"+flowId+"/"+flowId+".xhtml").markAsStartNode();
+        flowBuilder.viewNode(flowId, "/newregistration/newregistration.xhtml").markAsStartNode();
+        flowBuilder.viewNode(flowId, "/newregistration/newregistration2.xhtml");
+        flowBuilder.viewNode(flowId, "/newregistration/newregistration3.xhtml");
+
+        flowBuilder.switchNode("newregistrationPage2")
+                .defaultOutcome(flowId)
+                .switchCase()
+                .condition("#{not empty testeFlowBuilderBean.nome and not empty testeFlowBuilderBean.sobrenome}")
+                .fromOutcome("newregistration2");
+
+        flowBuilder.flowCallNode("callNewPendencies")
+                .flowReference("","newpendencies")
+                .outboundParameter("userName","#{testeFlowBuilderBean.nome}")
+                .outboundParameter("userSurname","#{testeFlowBuilderBean.sobrenome}");
+
+        flowBuilder.returnNode("exitToInicio").fromOutcome("/inicioflow.xhtml");
+        flowBuilder.returnNode("exitToIndex").fromOutcome("/index.xhtml");
+
+        flowBuilder.finalizer("#{testeFlowBuilderBean.salvar()}");
+
+        return flowBuilder.getFlow();
+    }
+}
+
+```
+
+- newregistration/newregistration.xhtml
+
+```xhtml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head></h:head>
+<h:body>
+    <h2>Primeira página de registro flowScope</h2>
+    <h:messages/>
+    <h:form>
+        <h:panelGrid columns="2">
+            <h:outputLabel value="Nome"/>
+            <h:inputText value="#{testeFlowBuilderBean.nome}" required="true" requiredMessage="Nome Obrigadorio"/>
+
+            <h:outputLabel value="Sobrenome"/>
+            <h:inputText value="#{testeFlowBuilderBean.sobrenome}"/>
+        </h:panelGrid>
+        <!--<h:commandButton value="Próxima Página" action="registration2?faces-redirect=true"/>-->
+        <h:commandButton value="Próxima Página" action="newregistrationPage2"/>
+    </h:form>
+</h:body>
+</html>
+
+```
+
 
 [Voltar ao Índice](#indice)
 
 ---
+
 
 ## <a name="parte22">Aula 21 Escopos pt 10, Dependent</a>
 
