@@ -2198,6 +2198,130 @@ public class testeFlowbean implements Serializable {
 
 ## <a name="parte20">Aula 19 Escopos pt 08, FlowScoped pt 03, Nested FlowScoped (FlowScope Aninhado)</a>
 
+```xml
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+    http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+    <flow-definition id="pendencies">
+        <flow-return id="proceedToRegistration3">
+            <from-outcome>/registration/registration3</from-outcome>
+        </flow-return>
+        
+        <!-- Retornar para inicio se ocorrer erro-->
+        <flow-return id="exitToInicio">
+            <from-outcome>registrationInicio</from-outcome>
+        </flow-return>
+        
+        <inbound-parameter>
+            <name>userName</name>
+            <value>#{testeFlowNestedBean.userName}</value>
+        </inbound-parameter>
+        <inbound-parameter>
+            <name>userSurname</name>
+            <value>#{testeFlowNestedBean.userSurname}</value>
+        </inbound-parameter>
+    </flow-definition>
+</faces-config>
+```
+
+```xhtml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head></h:head>
+<h:body>
+    <h2>Validando dados do usuário</h2>
+    <p:messages autoUpdate="true"/>
+    <h:form>
+        <h:panelGrid columns="2">
+            <h:outputLabel value="#{testeFlowNestedBean.userName}"/>
+            <h:outputLabel value="#{testeFlowNestedBean.userSurname}"/>
+            <h:commandButton value="Validar Usuario" action="#{testeFlowNestedBean.validarUser()}"/>
+            <h:commandButton value="Voltar ao inicio" action="exitToInicio"/>
+        </h:panelGrid>
+    </h:form>
+</h:body>
+</html>
+
+```
+
+```java
+package com.maratonajsf.bean.flow;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.flow.FlowScoped;
+import javax.inject.Named;
+import java.io.Serializable;
+
+@Named
+@FlowScoped(value = "pendencies")
+public class TesteFlowNestedBean implements Serializable {
+    private String userName;
+    private String userSurname;
+
+    public String validarUser(){
+        System.out.println("Fazendo consulta no SPC");
+        System.out.println("Fazendo consulta no SERASA");
+        System.out.println("Fazendo consulta no DEUS");
+        System.out.println("Fazendo consulta ETC...");
+
+        if(true){
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Usuário não pssou nas pendencias", "Outros Detalhes com administrador!" ));
+            return null;
+        }
+
+        return "proceedToRegistration3";
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserSurname() {
+        return userSurname;
+    }
+
+    public void setUserSurname(String userSurname) {
+        this.userSurname = userSurname;
+    }
+}
+
+```
+
+- registration/registration-flow.xml
+
+```xml
+
+        <flow-call id="callPendendecies">
+            <flow-reference>
+                <flow-id>pendencies</flow-id>
+            </flow-reference>
+            <outbound-parameter>
+                <name>userName</name>
+                <value>#{testeFlowbean.nome}</value>
+            </outbound-parameter>
+            <outbound-parameter>
+                <name>userSurname</name>
+                <value>#{testeFlowbean.sobrenome}</value>
+            </outbound-parameter>
+        </flow-call>
+
+
+```
 
 [Voltar ao Índice](#indice)
 
